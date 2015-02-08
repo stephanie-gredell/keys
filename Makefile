@@ -3,7 +3,7 @@ start: build
 
 build: css rjs hbs
 	@cp index.html _build/index.html
-
+	@echo ">>> built!"
 css:
 	@compass compile
 	@cp libs/css/*.css _build/css/libs/
