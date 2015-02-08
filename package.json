@@ -5,7 +5,8 @@
   "main": "app.js",
   "dependencies": {
     "handlebars": "^2.0.0",
-    "requirejs": "^2.1.15"
+    "requirejs": "^2.1.15",
+    "watchr": "^2.4.13"
   },
   "devDependencies": {},
   "scripts": {
