@@ -6,7 +6,7 @@ build: css rjs hbs
 	@echo ">>> built!"
 css:
 	@compass compile
-	@cp libs/css/*.css _build/css/libs/
+	@cp sass/libs/*.css _build/css/libs/
 
 rjs:
 	@./node_modules/requirejs/bin/r.js -convert js _build/js
