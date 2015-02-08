@@ -1,0 +1,20 @@
+{
+  "name": "Keysperience",
+  "version": "1.0.0",
+  "description": "Interactive Piano Learning Project",
+  "main": "app.js",
+  "dependencies": {
+    "handlebars": "^2.0.0",
+    "requirejs": "^2.1.15"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://sgredell@bitbucket.org/sgredell/keys_fe.git"
+  },
+  "author": "",
+  "license": "ISC"
+}
