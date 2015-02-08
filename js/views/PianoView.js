@@ -3,8 +3,6 @@ var template = require('templates/piano');
 var $ = require('jquery');
 var PianoManager = require('managers/PianoManager');
 
-
-
 module.exports = Backbone.View.extend({
     _PianoManager: new PianoManager(),
     initialize: function () {

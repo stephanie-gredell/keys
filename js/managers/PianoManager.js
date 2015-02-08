@@ -16,7 +16,10 @@ module.exports = Fiber.extend(function() {
         init: function () {
             MIDI.loadPlugin({
                 soundfontUrl: "./soundfont/",
-                instrument: "acoustic_grand_piano"
+                instrument: "acoustic_grand_piano",
+                callback: function () {
+
+                }
             });
         },
         playNote: function (note) {
