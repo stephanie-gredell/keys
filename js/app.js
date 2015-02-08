@@ -6,7 +6,8 @@ require.config({
         'underscore': 'libs/underscore',
         'fiber': 'libs/fiber',
         'handlebars.runtime': 'libs/handlebars.amd',
-        'templates': '../templates'
+        'templates': '../templates',
+        'pianoManager': 'managers/PianoManager'
     },
     shim: {
         underscore: {
@@ -15,10 +16,15 @@ require.config({
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
+        },
+        'pianoManager': {
+            deps: ['libs/AudioDetect','libs/LoadPlugin','libs/Player','libs/Plugin','libs/DOMLoader.XMLHttp','libs/Event','libs/Queue','libs/Base64','libs/base64binary']
         }
+
     }
 });
 
-require(['views/NavigationView'], function(NavigationView) {
+require(['views/NavigationView', 'views/PianoView'], function(NavigationView, PianoView) {
     new NavigationView();
+    new PianoView();
 });
