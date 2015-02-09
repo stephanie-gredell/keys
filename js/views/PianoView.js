@@ -4,16 +4,15 @@ var $ = require('jquery');
 var PianoManager = require('managers/PianoManager');
 
 module.exports = Backbone.View.extend({
-    _PianoManager: new PianoManager(),
     initialize: function () {
         $('body').append(template());
+        this._PianoManager = new PianoManager();
     },
     events: {
         'click #piano': 'clickedKey'
     },
     clickedKey: function (event) {
         var note = $(event.target).data('note');
-        this._PianoManager.playNote(note);
     },
     el: 'body'
 });
