@@ -1,31 +1,51 @@
 var Fiber = require('fiber');
-require('libs/AudioDetect');
-require('libs/LoadPlugin');
-require('libs/Player');
-require('libs/Plugin');
-require('libs/DOMLoader.XMLHttp');
-require('libs/Event');
-require('libs/Queue');
-require('libs/Base64');
-require('libs/base64binary');
+var _ = require("underscore");
 
-module.exports = Fiber.extend(function() {
+module.exports = Fiber.extend(function () {
     return {
-        _velocity: 127,
-        _delay: 0,
+        input: null,
+        output: null,
         init: function () {
-            MIDI.loadPlugin({
-                soundfontUrl: "./soundfont/",
-                instrument: "acoustic_grand_piano",
-                callback: function () {
+            this.selectInput = document.getElementById("inputs");
+            this.selectOutput = document.getElementById("outputs");
 
-                }
-            });
+            JMB.init(_.bind(function(MIDIAccess){
+
+                var inputs = MIDIAccess.enumerateInputs(),
+                    outputs = MIDIAccess.enumerateOutputs();
+
+                //create dropdown menu for MIDI inputs
+                JMB.createMIDIDeviceSelector(this.selectInput,inputs,"input", _.bind(function(deviceId){
+                    if(this.input){
+                        this.input.close();
+                    }
+                    this.input = MIDIAccess.getInput(deviceId);
+                    this.connectDevices(MIDIAccess);
+                }, this));
+
+                //create dropdown menu for MIDI outputs
+                JMB.createMIDIDeviceSelector(this.selectOutput,outputs,"ouput", _.bind(function(deviceId){
+                    if(this.output){
+                        this.output.close();
+                    }
+                    this.output = MIDIAccess.getOutput(deviceId);
+                    this.connectDevices(MIDIAccess);
+                },this));
+
+            }, this));
+        },
+        connectDevices: function(MIDIAccess) {
+            if(this.input){
+                this.input.addEventListener("midimessage", _.bind(function(msg){
+                    console.log(msg);
+                    if(this.output){
+                        this.output.sendMIDIMessage(msg);
+                    }
+                },this));
+            }
         },
         playNote: function (note) {
-            MIDI.setVolume(0, 127);
-            MIDI.noteOn(0, note, this._velocity, this._delay);
-            MIDI.noteOff(0, note, this._delay + 0.75);
+            console.log(note);
         }
     }
 });

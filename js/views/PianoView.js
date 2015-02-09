@@ -12,6 +12,7 @@ module.exports = Backbone.View.extend({
         'click #piano': 'clickedKey'
     },
     clickedKey: function (event) {
+        console.log(event);
         var note = $(event.target).data('note');
         this._PianoManager.playNote(note);
     },
