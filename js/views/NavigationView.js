@@ -4,7 +4,7 @@ var $ = require('jquery');
 
 module.exports = Backbone.View.extend({
     initialize: function() {
-        $('body').html(template({text: "hello"}));
+        $('body').append(template({text: "hello"}));
     },
     el: 'body'
 });
