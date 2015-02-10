@@ -12,9 +12,6 @@ module.exports = Backbone.View.extend({
         $('body').append(this.el);
         new PianoManager();
     },
-    events: {
-        'keyDown':'connectKeyboard'
-    },
     render: function() {
         this.$el.append(template());
     },
