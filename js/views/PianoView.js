@@ -2,17 +2,25 @@ var Backbone = require('backbone');
 var template = require('templates/piano');
 var $ = require('jquery');
 var PianoManager = require('managers/PianoManager');
+var EventBus = require("eventBus");
 
 module.exports = Backbone.View.extend({
     initialize: function () {
-        $('body').append(template());
-        this._PianoManager = new PianoManager();
+        EventBus.on('key_played', this._playKey, this);
+        $('body').append(this.el);
+        new PianoManager();
     },
-    events: {
-        'click #piano': 'clickedKey'
+    render: function() {
+        this.$el.append(template());
     },
-    clickedKey: function (event) {
-        var note = $(event.target).data('note');
+    _playKey: function(msg) {
+        var eventType = msg.command == 144 ? 'input' : 'output';
+
+        if (eventType === 'input') {
+            this.$el.find('[data-note=\'' + msg.data1 + '\']').addClass('active');
+        } else {
+            this.$el.find('[data-note=\'' + msg.data1 + '\']').removeClass('active');
+        }
     },
-    el: 'body'
+    id: "piano-wrapper"
 });
