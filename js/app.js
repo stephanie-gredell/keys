@@ -26,5 +26,5 @@ require.config({
 
 require(['views/NavigationView', 'views/PianoView'], function(NavigationView, PianoView) {
     new NavigationView();
-    new PianoView();
+    new PianoView().render();
 });

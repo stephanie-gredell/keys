@@ -1,5 +1,6 @@
 var Fiber = require('fiber');
 var _ = require("underscore");
+var EventBus = require("eventBus");
 
 module.exports = Fiber.extend(function () {
     return {
@@ -37,15 +38,12 @@ module.exports = Fiber.extend(function () {
         connectDevices: function(MIDIAccess) {
             if(this.input){
                 this.input.addEventListener("midimessage", _.bind(function(msg){
-                    console.log(msg);
                     if(this.output){
                         this.output.sendMIDIMessage(msg);
+                        EventBus.trigger('key_played', msg);
                     }
                 },this));
             }
-        },
-        playNote: function (note) {
-            console.log(note);
         }
     }
 });
