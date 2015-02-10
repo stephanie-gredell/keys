@@ -1,6 +1,6 @@
 /* Piano Wrapper */
 
-#p-wrapper {
+#piano-wrapper {
   background: #000;
   background: -webkit-linear-gradient(-60deg, black, #333333, black, #666666, #333333 70%);
   background: -moz-linear-gradient(-60deg, black, #333333, black, #666666, #333333 70%);
@@ -58,7 +58,7 @@ ul#piano {
       -moz-border-radius: 0 0 3px 3px;
       border-radius: 0 0 3px 3px;
     }
-    a:active, div.anchor:active, div.active {
+    div.active {
       -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
       -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
       box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
@@ -66,7 +66,7 @@ ul#piano {
       top: 2px;
       height: 216px;
     }
-    a:active:before, div.anchor:active:before, div.active:before {
+    div.active:before {
       content: "";
       width: 0px;
       height: 0px;
@@ -77,7 +77,7 @@ ul#piano {
       left: 0px;
       top: 0px;
     }
-    a:active:after, div.anchor:active:after {
+    div.active:after {
       content: "";
       width: 0px;
       height: 0px;
@@ -110,7 +110,7 @@ ul#piano {
       -webkit-border-radius: 0 0 2px 2px;
       -moz-border-radius: 0 0 2px 2px;
       border-radius: 0 0 2px 2px;
-      &:active {
+      &.active {
         border-bottom-width: 2px;
         height: 123px;
         -webkit-box-shadow: inset 0px -1px 1px rgba(255, 255, 255, 0.4), 0 1px 0px rgba(0, 0, 0, 0.8), 0 2px 2px rgba(0, 0, 0, 0.4), 0 -1px 0px black;
