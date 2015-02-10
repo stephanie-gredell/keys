@@ -8,7 +8,8 @@
   background: -o-linear-gradient(-60deg, black, #333333, black, #666666, #333333 70%);
   background: linear-gradient(-60deg, black, #333333, black, #666666, #333333 70%);
   width: 100%;
-  position: relative;
+  position: fixed;
+  bottom: 0;
   -webkit-box-shadow: 0 2px 0px #666666, 0 3px 0px #555555, 0 4px 0px #444444, 0 6px 6px black, inset 0 -1px 1px rgba(255, 255, 255, 0.5), inset 0 -4px 5px black;
   -moz-box-shadow: 0 2px 0px #666666, 0 3px 0px #555555, 0 4px 0px #444444, 0 6px 6px black, inset 0 -1px 1px rgba(255, 255, 255, 0.5), inset 0 -4px 5px black;
   box-shadow: 0 2px 0px #666666, 0 3px 0px #555555, 0 4px 0px #444444, 0 6px 6px black, inset 0 -1px 1px rgba(255, 255, 255, 0.5), inset 0 -4px 5px black;

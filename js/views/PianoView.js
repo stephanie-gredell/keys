@@ -7,8 +7,13 @@ var EventBus = require("eventBus");
 module.exports = Backbone.View.extend({
     initialize: function () {
         EventBus.on('key_played', this._playKey, this);
+        $(document).on('keydown', this.connectKeyboard);
+        $(document).on('keyup', this.connectKeyboard);
         $('body').append(this.el);
         new PianoManager();
+    },
+    events: {
+        'keyDown':'connectKeyboard'
     },
     render: function() {
         this.$el.append(template());
@@ -22,6 +27,9 @@ module.exports = Backbone.View.extend({
             this.$el.find('[data-note=\'' + msg.data1 + '\']').removeClass('active');
         }
 
+    },
+    connectKeyboard: function(event) {
+        EventBus.trigger('keyboard_play', event);
     },
     id: "piano-wrapper"
 });
