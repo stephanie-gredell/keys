@@ -24,7 +24,10 @@ require.config({
     }
 });
 
-require(['views/NavigationView', 'views/PianoView'], function(NavigationView, PianoView) {
+require(['views/NavigationView', 'views/PianoView','jquery'], function(NavigationView, PianoView,$) {
+
     new NavigationView();
-    new PianoView().render();
+    var pianoView = new PianoView();
+    pianoView.render();
+    $('body').append(pianoView.el);
 });

@@ -9,13 +9,17 @@ module.exports = Backbone.View.extend({
         EventBus.on('key_played', this._playKey, this);
         $(document).on('keydown', this.connectKeyboard);
         $(document).on('keyup', this.connectKeyboard);
-        $('body').append(this.el);
+
         new PianoManager();
     },
-    render: function() {
-        this.$el.append(template());
+    events: {
+        'mousedown #piano': 'clickPlay',
+        'mouseup #piano': 'clickRelease'
     },
-    _playKey: function(msg) {
+    render: function () {
+        $(this.el).html(template());
+    },
+    _playKey: function (msg) {
         var eventType = msg.command == 144 ? 'input' : 'output';
 
         if (eventType === 'input') {
@@ -24,8 +28,16 @@ module.exports = Backbone.View.extend({
             this.$el.find('[data-note=\'' + msg.data1 + '\']').removeClass('active');
         }
     },
-    connectKeyboard: function(event) {
+    connectKeyboard: function (event) {
         EventBus.trigger('keyboard_play', event);
+    },
+    clickPlay: function (event) {
+        var note = $(event.target).data('note');
+        EventBus.trigger('mouse_play', note);
+    },
+    clickRelease: function(event) {
+        var note = $(event.target).data('note');
+        EventBus.trigger('mouse_release', note);
     },
     id: "piano-wrapper"
 });
