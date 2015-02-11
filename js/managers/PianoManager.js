@@ -10,7 +10,8 @@ module.exports = Fiber.extend(function () {
             this.selectInput = document.getElementById("inputs");
             this.selectOutput = document.getElementById("outputs");
             EventBus.on('keyboard_play', this.connectKeyboard, this);
-
+            EventBus.on('mouse_play', this.playNote, this);
+            EventBus.on('mouse_release', this.releaseNote, this);
             JMB.init(_.bind(function(MIDIAccess){
                 this.MIDIAccess = MIDIAccess;
                 var inputs = MIDIAccess.enumerateInputs(),
@@ -96,6 +97,14 @@ module.exports = Fiber.extend(function () {
                     EventBus.trigger('key_played', this.MIDIAccess.createMIDIMessage(JMB.NOTE_OFF, noteNumbers[e.which], 100));
                 }
             }
+        },
+        playNote: function(note) {
+            this.output.sendMIDIMessage(this.MIDIAccess.createMIDIMessage(JMB.NOTE_ON, note, 100));
+            EventBus.trigger('key_played', this.MIDIAccess.createMIDIMessage(JMB.NOTE_ON, note, 100));
+        },
+        releaseNote: function(note) {
+            this.output.sendMIDIMessage(this.MIDIAccess.createMIDIMessage(JMB.NOTE_OFF, note, 0));
+            EventBus.trigger('key_played', this.MIDIAccess.createMIDIMessage(JMB.NOTE_OFF, note, 100));
         }
     }
 });
