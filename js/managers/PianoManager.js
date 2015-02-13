@@ -1,6 +1,7 @@
 var Fiber = require('fiber');
 var _ = require("underscore");
 var EventBus = require("eventBus");
+var JMB = require('lib/')
 
 module.exports = Fiber.extend(function () {
     return {

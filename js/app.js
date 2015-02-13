@@ -7,7 +7,8 @@ require.config({
         'fiber': 'libs/fiber',
         'handlebars.runtime': 'libs/handlebars.amd',
         'templates': '../templates',
-        'pianoManager': 'managers/PianoManager'
+        'pianoManager': 'managers/PianoManager',
+        'JMB': 'libs/JazzMIDIBridge'
     },
     shim: {
         underscore: {
@@ -16,11 +17,7 @@ require.config({
         backbone: {
             deps: ['underscore', 'jquery'],
             exports: 'Backbone'
-        },
-        'pianoManager': {
-            deps: ['libs/AudioDetect','libs/LoadPlugin','libs/Player','libs/Plugin','libs/DOMLoader.XMLHttp','libs/Event','libs/Queue','libs/Base64','libs/base64binary']
         }
-
     }
 });
 

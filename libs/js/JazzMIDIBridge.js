@@ -1,9 +1,9 @@
 (function(global) {
     "use strict";
 
-	var Jazz,//reference to the Jazz browser plugin
-        JMB,//Jazz MIDI bridge wrapper
-        MIDIAccess,//the wrapper object that mimics the future native MIDIAccess object in a browser
+	var Jazz,
+        JMB,
+        MIDIAccess,
         scanDevices,
         createMIDIDevice,
         sendMIDIMessage,
@@ -12,7 +12,6 @@
         inputs = [],
         outputs = [],
         commands = [],
-        //notenames in different modes
         noteNames = {
             "sharp" : ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"],
             "flat" : ["C", "D♭", "D", "E♭", "E", "F", "G♭", "G", "A♭", "A", "B♭", "B"],
@@ -21,7 +20,6 @@
         },
         version = "0.1";
 
-    //human readable representation of the midi commands (the upper 4 bits of the status byte)
     commands[0x80] = "NOTE OFF";
     commands[0x90] = "NOTE ON";
     commands[0xA0] = "POLY PRESSURE";
@@ -31,8 +29,6 @@
     commands[0xE0] = "PITCH BEND";
     commands[0xF0] = "SYSTEM EXCLUSIVE";
 
-
-    //make sure that IE9 doesn't hang on uncommented console.log() statements
     try {
         console.log("");
     } catch (e) {
@@ -41,7 +37,6 @@
         };
     }       
 
-    //creates a wrapper object for MIDI in- and outputs
     createMIDIDevice = function(index,type,name){
         var device = {
             index: index,
@@ -130,7 +125,6 @@
         return device;
     };
 
-    //scans all currently available MIDI devices
     scanDevices = function(){
 		var name,
 			list;
@@ -154,7 +148,6 @@
         return 'command:' + commands[msg.command] + ' channel:' + msg.channel + ' data1:' + msg.data1 + ' data2:' + msg.data2 + ' timestamp:' + msg.timestamp;
     };
 
-    //@TODO add constructor (short status, Uint8Array data, timeStamp = CURRENT_TIME)
     createMIDIMessage = function(command,data1,data2,channel,timestamp){
         var message = {
             command: command,
@@ -167,11 +160,10 @@
         message.toString = function(){
             return logMIDIMessage(message);
         };
-        //console.log(message.status,message.command,message.channel);
+
         return message;
     };
 
-    //the wrapper object that mimics the future native MIDIAccess object in a browser
     MIDIAccess = {
         enumerateInputs: function(){
             return inputs;
@@ -339,10 +331,8 @@
         }
     };
 
-    //add addEventListener to IE8
     JMB.wrapElement(global);
 
-	// Support for AMD (async module definition)
 	if(typeof define === 'function' && define.amd) {
 		define(JMB);
 	} else {
