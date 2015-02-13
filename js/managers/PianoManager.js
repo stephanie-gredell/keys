@@ -1,23 +1,12 @@
 var Fiber = require('fiber');
 var _ = require("underscore");
 var EventBus = require("eventBus");
-module.exports = Fiber.extend(function() {
-    return {
-        _velocity: 127,
-        _delay: 0,
-        init: function () {
-            MIDI.loadPlugin({
-                soundfontUrl: "./soundfont/",
-                instrument: "acoustic_grand_piano",
-                callback: function () {
-                }
-            });
-        },
-        playNote: function (note) {
-            MIDI.setVolume(0, 127);
-            MIDI.noteOn(0, note, this._velocity, this._delay);
-            MIDI.noteOff(0, note, this._delay + 0.75);
 
+module.exports = Fiber.extend(function () {
+    return {
+        input: null,
+        output: null,
+        init: function () {
             this.selectInput = document.getElementById("inputs");
             this.selectOutput = document.getElementById("outputs");
             EventBus.on('keyboard_play', this.connectKeyboard, this);
