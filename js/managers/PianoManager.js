@@ -75,7 +75,7 @@ module.exports = Fiber.extend(function () {
                 80 : 63  //key p -> note d#/e♭
             };
 
-            var keysPressed = {}
+            var keysPressed = {};
 
             if (event.type === "keydown") {
                 if(e.which === 32) {
