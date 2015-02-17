@@ -1,5 +1,5 @@
 @import "libs/foundation";
-@import "libs/stepbystep";
+@import "stepbystep";
 @import "piano";
 
 object {height:1px;}
@@ -7,4 +7,10 @@ object object {height: 0px;}
 
 #device_options {
   color:white
+}
+
+.step-by-step-style-one {
+  ul {
+    list-style-type: none;
+  }
 }
