@@ -37,7 +37,7 @@ module.exports = Fiber.extend(function () {
 
             }, this));
         },
-        connectDevices: function(MIDIAccess) {
+        connectDevices: function() {
             if(this.input){
                 this.input.addEventListener("midimessage", _.bind(function(msg){
                     if(this.output){
@@ -106,5 +106,5 @@ module.exports = Fiber.extend(function () {
             this.output.sendMIDIMessage(this.MIDIAccess.createMIDIMessage(JMB.NOTE_OFF, note, 0));
             EventBus.trigger('key_played', this.MIDIAccess.createMIDIMessage(JMB.NOTE_OFF, note, 100));
         }
-    }
+    };
 });
