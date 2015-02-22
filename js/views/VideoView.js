@@ -3,7 +3,7 @@ var template = require('templates/video');
 var $ = require('jquery');
 
 module.exports = Backbone.View.extend({
-    videoUrl: '//player.vimeo.com/video/119777338',
+    videoUrl: '//player.vimeo.com/video/119618295',
     events: {
         'click button': '_playButtonPressed'
     },
@@ -48,7 +48,7 @@ module.exports = Backbone.View.extend({
         this._post('addEventListener', 'playProgress');
     },
     _onProgress: function (data) {
-        this.$status.text(data.seconds + 's played');
+        this.$status.text(Math.ceil(data.seconds) + 's played out of ' + Math.ceil(data.duration));
     },
     _onPause: function () {
         this.$status.text('paused');
