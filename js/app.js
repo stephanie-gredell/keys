@@ -7,7 +7,8 @@ require.config({
         'fiber': 'libs/fiber',
         'handlebars.runtime': 'libs/handlebars.amd',
         'templates': '../templates',
-        'pianoManager': 'managers/PianoManager'
+        'pianoManager': 'managers/PianoManager',
+        'foundation': 'libs/foundation.min'
     },
     shim: {
         underscore: {
