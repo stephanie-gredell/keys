@@ -20,7 +20,9 @@
 .signup-panel p {
   font-size: 13px;
   font-weight: 200;
-  margin-left: 25%;
+  a {
+    color: #008CBA;
+  }
 }
 .signup-panel .button {
   margin-left: 35%;
