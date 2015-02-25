@@ -7,6 +7,5 @@ module.exports = Backbone.View.extend({
     initialize: function() {
         $(document).foundation();
         $(this.el).append(template());
-    },
-    el: 'body'
+    }
 });
