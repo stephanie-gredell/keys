@@ -2,6 +2,7 @@ start: build
 	@python bin/server.py
 
 build: clean css jshint rjs hbs
+	@cp -R sass/fonts _build/css/fonts
 	@cp index.html _build/index.html
 	@echo ">>> built!"
 css:
