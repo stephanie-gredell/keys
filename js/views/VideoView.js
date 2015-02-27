@@ -1,26 +1,23 @@
-var Backbone = require('backbone');
+var BaseView = require('views/BaseView');
 var template = require('templates/video');
 var $ = require('jquery');
 
-module.exports = Backbone.View.extend({
+module.exports = BaseView.extend({
     videoUrl: '//player.vimeo.com/video/119618295',
     events: {
         'click button': '_playButtonPressed'
     },
-    render: function () {
+    initialize: function () {
         $(this.el).html(template({url: this.videoUrl}));
-        $('body').append(this.el);
+    },
+    afterRender: function() {
         this.$player = $('iframe');
         this.url = window.location.protocol + this.$player.attr('src').split('?')[0];
         this.$status = $('.status');
-        this._listenMessages();
+
+        window.addEventListener('message', _.bind(this._onMessageReceived, this), false);
     },
-    _listenMessages: function () {
-        if (window.addEventListener) {
-            window.addEventListener('message', _.bind(this._onMessageRecieved, this), false);
-        }
-    },
-    _onMessageRecieved: function (e) {
+    _onMessageReceived: function (e) {
         var data = JSON.parse(e.data);
 
         switch (data.event) {

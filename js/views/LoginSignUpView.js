@@ -1,11 +1,11 @@
-var Backbone = require('backbone');
+var BaseView = require('views/BaseView');
 var template = require('templates/loginsignup');
 var $ = require('jquery');
 require('foundation');
 
-module.exports = Backbone.View.extend({
+module.exports = BaseView.extend({
     initialize: function() {
         $(document).foundation();
-        $(this.el).append(template());
+        this.$el.append(template());
     }
 });

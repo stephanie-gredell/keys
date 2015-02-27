@@ -1,23 +1,21 @@
-var Backbone = require('backbone');
+var BaseView = require('views/BaseView');
 var template = require('templates/piano');
 var $ = require('jquery');
 var PianoManager = require('managers/PianoManager');
 var EventBus = require("eventBus");
 
-module.exports = Backbone.View.extend({
+module.exports = BaseView.extend({
     initialize: function () {
         EventBus.on('key_played', this._playKey, this);
         $(document).on('keydown', this.connectKeyboard);
         $(document).on('keyup', this.connectKeyboard);
 
         new PianoManager();
+        $(this.el).html(template());
     },
     events: {
         'mousedown #piano': 'clickPlay',
         'mouseup #piano': 'clickRelease'
-    },
-    render: function () {
-        $(this.el).html(template());
     },
     _playKey: function (msg) {
         var eventType = msg.command == 144 ? 'input' : 'output';

@@ -1,10 +1,10 @@
-var Backbone = require('backbone');
+var BaseView = require('views/BaseView');
 var template = require('templates/navigation');
 var $ = require('jquery');
 
-module.exports = Backbone.View.extend({
+module.exports = BaseView.extend({
     initialize: function() {
-        $('body').append(template({text: "hello"}));
+        this.$el.append(template({text: "hello"}));
     },
     el: 'body'
 });
