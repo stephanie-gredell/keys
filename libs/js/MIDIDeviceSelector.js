@@ -1,7 +1,12 @@
 (function (mb) {
   "use strict";
 
-  mb.createMIDIDeviceSelector = function (select, devices, type, callback) {
+  mb.createMIDIDeviceSelector = function (options) {
+    var select = options['select'],
+        devices = options.devices,
+        type = options.type,
+        callback = options.callback;
+
     var createOption,
         getSelectedDevice;
 
@@ -21,18 +26,15 @@
 
     //for IE8
     mb.wrapElement(select);
-
-    //add the first option to the dropdown menu
     select.appendChild(createOption("-1", "choose a MIDI " + type));
 
-    //loop over all devices and add them to the dropdown menu
-    (function () {
-      var i, maxi, device;
-      for (i = 0, maxi = devices.length; i < maxi; i = i + 1) {
-        device = devices[i];
+
+    for (var i = 0; i < devices.length; i++) {
+      var device = devices[i];
+      if (typeof device !== 'undefined') {
         select.appendChild(createOption(i, device.deviceName));
       }
-    }());
+    }
 
     select.addEventListener("change", function (e) {
       callback(getSelectedDevice());
