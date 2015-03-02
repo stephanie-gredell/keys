@@ -1,14 +1,31 @@
 var Fiber = require('fiber');
 var _ = require("underscore");
 var UserModel = require("models/UserModel");
-var jCookie = require("cookie");
+var LoginView = require('views/LoginView');
+
+require("cookie");
 
 var LoginManager = Fiber.extend(function () {
   return {
     _model: new UserModel(),
+    is_authenticated: false,
+    /**
+     * Check the cookie and if it is set, set boolean to true
+     */
+    init: function() {
+      if ($.cookie('username')) {
+        this.is_authenticated = true;
+      }
+    },
+    /**
+     * Check user credentials against server and log the user in upon success
+     * Requires username and password in options along with a second parameter which is a callback method
+     * @param {object} options contains required parameters
+     * @param callback a callback method which excepts a boolean.
+     */
     login: function (options, callback) {
       $.ajax({
-        is_authenticated: false,
+
         url: 'http://localhost:3000/api/login',
         data: {
           username: options.username,
@@ -17,7 +34,7 @@ var LoginManager = Fiber.extend(function () {
         context: this,
         success: function (data) {
           this.is_authenticated = true;
-          this.destroyCookie(options.username);
+          this.setUserCookie(options.username);
           callback(true);
         },
         error: function (error) {
@@ -25,11 +42,27 @@ var LoginManager = Fiber.extend(function () {
         }
       });
     },
+    /**
+     * set the user cookie
+     * @param username
+     */
     setUserCookie: function (username) {
       $.cookie('username', username, {expires: 7, path: '/'});
     },
+    /**
+     * destroy user cookie
+     * @param username
+     */
     destroyCookie: function (username) {
       $.removeCookie('username', {path: '/'});
+    },
+    /**
+     * show login view
+     * @param element
+     */
+    showLoginView: function(element) {
+      var loginView = new LoginView({LoginManager: this});
+      loginView.render(element);
     }
   };
 });
