@@ -8,7 +8,8 @@ require.config({
         'handlebars.runtime': 'libs/handlebars.amd',
         'templates': '../templates',
         'pianoManager': 'managers/PianoManager',
-        'foundation': 'libs/foundation.min'
+        'foundation': 'libs/foundation.min',
+        'cookie': 'libs/jquery.cookie'
     },
     shim: {
         underscore: {
