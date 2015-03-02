@@ -10,11 +10,20 @@ module.exports = BaseView.extend({
     this.$el.append(template());
   },
   events: {
-    'click .login': 'clickLogin'
+    'click .login': 'login',
+    'keypress': 'login'
   },
-  clickLogin: function () {
-    if (ValidationManager.validateEmail(this.$el.find('#LoginUserName').val())) {
-      LoginManager.login();
+  login: function (event) {
+    if (event.keyCode !== 13) {
+      return;
     }
+    var options = {
+      username: this.$el.find('#LoginUserName').val(),
+      password: this.$el.find('#password').val()
+    };
+
+    LoginManager.login(options, _.bind(function (is_authenticated) {
+      this.remove();
+    }, this));
   }
 });
