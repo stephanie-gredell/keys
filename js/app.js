@@ -26,13 +26,9 @@ require.config({
     }
 });
 
-require(['views/NavigationView', 'views/PianoView','jquery', 'views/VideoView'], function(NavigationView, PianoView,$, VideoView) {
-
-    new NavigationView();
-    var pianoView = new PianoView();
-    var videoView = new VideoView();
-    videoView.render();
-    pianoView.render();
-    $('body').append(pianoView.el);
-    $('body').append(videoView.el);
+/**
+ * Upon app entry, start an App Controller
+ */
+require(['controllers/AppController'], function(AppController) {
+    new AppController();
 });
