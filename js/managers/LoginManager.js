@@ -2,6 +2,7 @@ var Fiber = require('fiber');
 var _ = require("underscore");
 var UserModel = require("models/UserModel");
 var LoginView = require('views/LoginView');
+var STRINGS = require('utils/strings');
 
 require("cookie");
 
@@ -26,7 +27,7 @@ var LoginManager = Fiber.extend(function () {
     login: function (options, callback) {
       $.ajax({
 
-        url: 'http://localhost:3000/api/login',
+        url: STRINGS.API.LOGIN,
         data: {
           username: options.username,
           password: options.password
@@ -47,14 +48,14 @@ var LoginManager = Fiber.extend(function () {
      * @param username
      */
     setUserCookie: function (username) {
-      $.cookie('username', username, {expires: 7, path: '/'});
+      $.cookie(STRINGS.COOKIE.LOGIN.NAME, username, {path: '/'});
     },
     /**
      * destroy user cookie
      * @param username
      */
     destroyCookie: function (username) {
-      $.removeCookie('username', {path: '/'});
+      $.removeCookie(STRINGS.COOKIE.LOGIN.NAME, {path: '/'});
     },
     /**
      * show login view
