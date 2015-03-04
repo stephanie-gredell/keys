@@ -10,5 +10,9 @@ module.exports = Backbone.View.extend({
     if (this.afterRender) {
       this.afterRender();
     }
+  },
+  remove: function() {
+    this.trigger('remove');
+    Backbone.View.prototype.remove.apply(this, arguments);
   }
 });
