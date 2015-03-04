@@ -3,6 +3,7 @@ var template = require('templates/piano');
 var deviceselector = require('templates/deviceSelector');
 var $ = require('jquery');
 var EventBus = require("eventBus");
+var AlertManager = require('managers/AlertManager');
 
 var noteNumbers = {
   //white keys
@@ -119,6 +120,10 @@ module.exports = BaseView.extend({
 
   },
   clickPlay: function (event) {
+    if (!this.output) {
+      AlertManager.showAlertView($('body'), {message: 'Must select an output before playing'});
+      return;
+    }
     var note = $(event.target).data('note');
     var msg = this.MIDIAccess.createMIDIMessage(JMB.NOTE_ON, note, 100);
     this.output.sendMIDIMessage(msg);
