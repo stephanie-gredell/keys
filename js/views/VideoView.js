@@ -3,12 +3,11 @@ var template = require('templates/video');
 var $ = require('jquery');
 
 module.exports = BaseView.extend({
-  videoUrl: '//player.vimeo.com/video/119618295',
   events: {
     'click button': '_playButtonPressed'
   },
-  initialize: function () {
-    $(this.el).html(template({url: this.videoUrl}));
+  initialize: function (options) {
+    $(this.el).html(template({url: options.videoUrl}));
   },
   afterRender: function () {
     this.$player = $('iframe');
@@ -39,7 +38,8 @@ module.exports = BaseView.extend({
     }
   },
   _onReady: function () {
-    this.$status.text('ready');
+    this.trigger('videoReady');
+    //this.$status.text('ready');
     this._post('addEventListener', 'pause');
     this._post('addEventListener', 'finish');
     this._post('addEventListener', 'playProgress');
@@ -48,12 +48,15 @@ module.exports = BaseView.extend({
     this.$status.text(Math.ceil(data.seconds) + 's played out of ' + Math.ceil(data.duration));
   },
   _onPause: function () {
+    this.trigger('videoPause');
     this.$status.text('paused');
   },
   _onFinish: function () {
+    this.trigger('videoFinish');
     this.$status.text('ready');
   },
   _playButtonPressed: function (e) {
+    this.trigger('videoStart');
     this.$status.html('play');
   },
   _post: function (action, value) {
